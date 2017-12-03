@@ -10,5 +10,6 @@ import java.util.List;
  * @Date 2017/12/3 17:00
  */
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
+    List<ProductCategory> findByCategoryTypeIn(List<Integer> categoryTypeList);
 
 }
