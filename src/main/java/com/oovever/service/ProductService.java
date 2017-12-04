@@ -1,6 +1,7 @@
 package com.oovever.service;
 
 import com.oovever.dataobject.ProductInfo;
+import com.oovever.dto.CartDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,6 +25,12 @@ public interface ProductService {
     Page<ProductInfo> findAll(Pageable pageable);
     //保存
     ProductInfo save(ProductInfo productInfo);
+
+    //加库存
+    void increaseStock(List<CartDTO> cartDTOList);
+
+    //减库存
+    void decreaseStock(List<CartDTO> cartDTOList);
 
 
 }
