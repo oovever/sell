@@ -3,6 +3,7 @@ package com.oovever.service.impl;
 import com.oovever.dataobject.OrderDetail;
 import com.oovever.dto.OrderDTO;
 import com.oovever.enums.OrderStatusEnum;
+import com.oovever.enums.PayStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -82,10 +83,16 @@ public class OrderServiceImplTest {
 
     @Test
     public void finish() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), result.getOrderStatus());
     }
 
     @Test
     public void paid() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.paid(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(), result.getPayStatus());
     }
 
 }
