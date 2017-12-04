@@ -6,6 +6,7 @@ import com.oovever.dto.OrderDTO;
 import com.oovever.enums.ResultEnum;
 import com.oovever.exception.SellException;
 import com.oovever.form.OrderForm;
+import com.oovever.service.BuyerService;
 import com.oovever.service.OrderService;
 import com.oovever.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,9 @@ import java.util.Map;
 public class BuyerOrderController {
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private BuyerService buyerService;
     //创建订单
     @PostMapping("/create")
     public ResultVO<Map<String,String>> create(@Valid OrderForm orderForm,
@@ -74,8 +78,8 @@ public class BuyerOrderController {
     @GetMapping("/detail")
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId) {
-        //TODO
-        OrderDTO orderDTO = orderService.findOne(orderId);
+
+        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
         return ResultVOUtil.success(orderDTO);
     }
     //取消订单
@@ -84,7 +88,7 @@ public class BuyerOrderController {
                            @RequestParam("orderId") String orderId) {
         //TODO
         OrderDTO orderDTO = orderService.findOne(orderId);
-        orderService.cancel(orderDTO);
+        buyerService.cancelOrder(openid, orderId);
         return ResultVOUtil.success();
     }
 }
