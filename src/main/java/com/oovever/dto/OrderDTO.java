@@ -1,7 +1,9 @@
 package com.oovever.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.oovever.dataobject.OrderDetail;
+import com.oovever.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 import lombok.Getter;
 
@@ -15,6 +17,7 @@ import java.util.List;
  */
 @Data
 @Getter
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
     /** 订单id. */
     private String orderId;
@@ -39,12 +42,12 @@ public class OrderDTO {
 
     /** 支付状态, 默认为0未支付. */
     private Integer payStatus;
-
     /** 创建时间. */
-
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /** 更新时间. */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;
